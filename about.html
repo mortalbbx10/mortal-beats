@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Mortal - Mortal Beats</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for about page */
+        .about-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/about-header.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(140, 94, 255, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .about-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(140, 94, 255, 0.5);
+            position: relative;
+        }
+        
+        .about-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .about-container {
+            padding: 100px 0;
+            background-color: var(--dark-secondary);
+            position: relative;
+        }
+        
+        .about-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom right, rgba(140, 94, 255, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .about-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.3);
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, rgba(140, 94, 255, 0.2), transparent);
+            pointer-events: none;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(140, 94, 255, 0.5);
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        
+        .about-text p.highlight {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin: 30px 0;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(140, 94, 255, 0.3);
+            border: 1px solid rgba(140, 94, 255, 0.4);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(140, 94, 255, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        
+        .skills-section {
+            margin-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .skills-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text-color);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(140, 94, 255, 0.2);
+            border: 1px solid rgba(140, 94, 255, 0.4);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(140, 94, 255, 0.3);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .skill-card p {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+        
+        .cta-section {
+            margin-top: 100px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 60px;
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray-color);
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                margin-bottom: 30px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-text h2 {
+                font-size: 2rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .cta-section {
+                padding: 40px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="about-header">
+        <div class="container">
+            <h1>About Mortal</h1>
+            <p>The producer behind the beats that move you</p>
+        </div>
+    </section>
+
+    <section class="about-container">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/IMG_2516.JPG" alt="Mortal - Music Producer">
+                </div>
+                <div class="about-text">
+                    <h2>The Story Behind the Sound</h2>
+                    
+                    <p class="highlight">"I'm Mortal — a music producer with 9 years of experience crafting sounds that connect people."</p>
+                    
+                    <p>From hard-hitting rap beats to smooth melodic vibes, I put my soul into every track I create. My journey in music production began nearly a decade ago, and since then, I've been dedicated to perfecting my craft and developing a signature sound that stands out in today's music landscape.</p>
+                    
+                    <p>I've had the privilege of working with artists from all over the world, helping them find their voice and express their unique stories through my production. What drives me is the perfect blend of creativity and technical quality — creating beats that not only sound professional but also carry emotion and energy.</p>
+                    
+                    <p>This site is where you'll find my collection of premium beats ready to elevate your sound — whether you're an established artist, an up-and-coming talent, a content creator, or just someone who appreciates good music.</p>
+                    
+                    <p>Let's create something legendary together.</p>
+                </div>
+            </div>
+            
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">9+</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Beats Produced</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+            </div>
+            
+            <div class="skills-section">
+                <h2 class="skills-title">What I Bring to the Table</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-drum"></i>
+                        </div>
+                        <h3>Trap Production</h3>
+                        <p>Specializing in creating hard-hitting trap beats with unique sound design and powerful 808s that cut through any mix.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h3>Professional Mixing</h3>
+                        <p>Every beat is professionally mixed to ensure it sounds great on any system, from studio monitors to smartphone speakers.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>Melodic Composition</h3>
+                        <p>Creating catchy, memorable melodies that stick in listeners' heads and provide the perfect foundation for vocals.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3>Custom Production</h3>
+                        <p>Beyond my beat store, I offer custom production services tailored to your specific vision and artistic direction.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Ready to Take Your Sound to the Next Level?</h2>
+                <p>Browse my collection of premium beats or get in touch for custom production work.</p>
+                <div class="cta-buttons">
+                    <a href="beats.html" class="btn btn-primary">Browse Beats</a>
+                    <a href="contact.html" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Mortal Beats</h3>
+                    <p>Premium beats for artists, content creators, and music lovers. Find the perfect sound for your next project.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/mortal_bbx/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">License Information</a></li>
+                        <li><a href="#">Copyright Notice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@beatmarket.com">info@beatmarket.com</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

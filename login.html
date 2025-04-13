@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BeatMarket</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for login page */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 50px;
+            background: linear-gradient(135deg, #6c44fc 0%, #ff7b54 100%);
+        }
+        
+        .auth-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .auth-header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .auth-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            opacity: 0.8;
+        }
+        
+        .auth-body {
+            padding: 40px 30px;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .auth-form .input-group {
+            position: relative;
+        }
+        
+        .auth-form .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .auth-form input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 68, 252, 0.2);
+        }
+        
+        .auth-form .forgot-password {
+            display: block;
+            text-align: right;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+        
+        .auth-form .forgot-password:hover {
+            opacity: 0.8;
+        }
+        
+        .auth-form .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .auth-divider span {
+            padding: 0 15px;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .google-btn {
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .google-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+            border: none;
+        }
+        
+        .facebook-btn:hover {
+            background-color: #344e86;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .auth-footer a:hover {
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 576px) {
+            .auth-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .auth-body {
+                padding: 30px 20px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">BeatMarket</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline active">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Log in to your BeatMarket account</p>
+            </div>
+            <div class="auth-body">
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">Log In</button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+                
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            const socialButtons = document.querySelectorAll('.social-btn');
+            
+            // Login form submission
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    // In a real application, this would send the credentials to the server for authentication
+                    // For demo purposes, we'll just simulate a successful login
+                    
+                    // Show loading state
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate API call delay
+                    setTimeout(() => {
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Show success notification
+                        showNotification('Login successful! Redirecting...', 'success');
+                        
+                        // Redirect to home page after a short delay
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    }, 2000);
+                });
+            }
+            
+            // Social login buttons
+            socialButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const provider = this.classList.contains('google-btn') ? 'Google' : 'Facebook';
+                    
+                    // Show loading state
+                    const originalText = this.innerHTML;
+                    this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Connecting...`;
+                    this.disabled = true;
+                    
+                    // Simulate API call delay
+                    setTimeout(() => {
+                        // Reset button
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                        
+                        // Show notification
+                        showNotification(`${provider} login is not available in demo mode`, 'info');
+                    }, 2000);
+                });
+            });
+            
+            // Notification function (copied from main.js for this page)
+            function showNotification(message, type = 'success') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'info' ? 'fa-info-circle' : 'fa-exclamation-circle'}"></i>
+                        <p>${message}</p>
+                    </div>
+                `;
+                
+                // Add notification to DOM
+                document.body.appendChild(notification);
+                
+                // Add active class after a small delay (for animation)
+                setTimeout(() => {
+                    notification.classList.add('active');
+                }, 10);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.classList.remove('active');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Add CSS for notifications
+            const style = document.createElement('style');
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: white;
+                    border-radius: 5px;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+                    padding: 15px 20px;
+                    z-index: 1000;
+                    transform: translateX(120%);
+                    transition: transform 0.3s ease;
+                }
+                
+                .notification.active {
+                    transform: translateX(0);
+                }
+                
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                }
+                
+                .notification i {
+                    margin-right: 10px;
+                    font-size: 1.2rem;
+                }
+                
+                .notification.success i {
+                    color: #28a745;
+                }
+                
+                .notification.info i {
+                    color: #17a2b8;
+                }
+                
+                .notification.error i {
+                    color: #dc3545;
+                }
+            `;
+            
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

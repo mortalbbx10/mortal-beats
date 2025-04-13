@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortal Beats - Premium Beats for Artists</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find the Perfect Beat for Your Next Hit</h1>
+            <p>Discover exclusive beats from top producers worldwide</p>
+            <div class="hero-buttons">
+                <a href="beats.html" class="btn btn-primary">Browse Beats</a>
+                <a href="#featured" class="btn btn-secondary">Featured Tracks</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="featured-beats">
+        <div class="container">
+            <h2 class="section-title">Featured Beats</h2>
+            <div class="beats-grid">
+                <!-- Beat Card 1 - Flute shi -->
+                <div class="beat-card">
+                    <div class="beat-image">
+                        <img src="images/beat-placeholder.jpg" alt="Flute shi Beat">
+                        <div class="play-button" data-audio="audio/Flute shi.wav">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="beat-info">
+                        <h3>Flute shi</h3>
+                        <p class="producer">By Your Producer Name</p>
+                        <div class="beat-meta">
+                            <span><i class="fas fa-music"></i> Trap</span>
+                            <span><i class="fas fa-clock"></i> 140 BPM</span>
+                        </div>
+                        <div class="beat-price">
+                            <span class="price">$35.00</span>
+                            <a href="#" class="add-to-cart" data-id="1"><i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Beat Card 2 - Kings -->
+                <div class="beat-card">
+                    <div class="beat-image">
+                        <img src="images/beat-placeholder.jpg" alt="Kings Beat">
+                        <div class="play-button" data-audio="audio/Kings.wav">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="beat-info">
+                        <h3>Kings</h3>
+                        <p class="producer">By Your Producer Name</p>
+                        <div class="beat-meta">
+                            <span><i class="fas fa-music"></i> Trap</span>
+                            <span><i class="fas fa-clock"></i> 91 BPM</span>
+                        </div>
+                        <div class="beat-price">
+                            <span class="price">$35.00</span>
+                            <a href="#" class="add-to-cart" data-id="2"><i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beat Card 3 - Queen -->
+                <div class="beat-card">
+                    <div class="beat-image">
+                        <img src="images/beat-placeholder.jpg" alt="Queen Beat">
+                        <div class="play-button" data-audio="audio/Queen.wav">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="beat-info">
+                        <h3>Queen</h3>
+                        <p class="producer">By Your Producer Name</p>
+                        <div class="beat-meta">
+                            <span><i class="fas fa-music"></i> Trap</span>
+                            <span><i class="fas fa-clock"></i> 80 BPM</span>
+                        </div>
+                        <div class="beat-price">
+                            <span class="price">$45.00</span>
+                            <a href="#" class="add-to-cart" data-id="3"><i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beat Card 4 - Scorpio -->
+                <div class="beat-card">
+                    <div class="beat-image">
+                        <img src="images/beat-placeholder.jpg" alt="Scorpio Beat">
+                        <div class="play-button" data-audio="audio/Scorpio.wav">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="beat-info">
+                        <h3>Scorpio</h3>
+                        <p class="producer">By Your Producer Name</p>
+                        <div class="beat-meta">
+                            <span><i class="fas fa-music"></i> Trap</span>
+                            <span><i class="fas fa-clock"></i> 76 BPM</span>
+                        </div>
+                        <div class="beat-price">
+                            <span class="price">$35.00</span>
+                            <a href="#" class="add-to-cart" data-id="4"><i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all">
+                <a href="beats.html" class="btn btn-secondary">View All Beats</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse by Genre</h2>
+            <div class="category-grid">
+                <a href="beats.html?genre=hiphop" class="category-card">
+                    <div class="category-icon"><i class="fas fa-compact-disc"></i></div>
+                    <h3>Hip Hop</h3>
+                    <p>120+ Beats</p>
+                </a>
+                <a href="beats.html?genre=trap" class="category-card">
+                    <div class="category-icon"><i class="fas fa-drum"></i></div>
+                    <h3>Trap</h3>
+                    <p>85+ Beats</p>
+                </a>
+                <a href="beats.html?genre=rnb" class="category-card">
+                    <div class="category-icon"><i class="fas fa-music"></i></div>
+                    <h3>R&B</h3>
+                    <p>60+ Beats</p>
+                </a>
+                <a href="beats.html?genre=pop" class="category-card">
+                    <div class="category-icon"><i class="fas fa-star"></i></div>
+                    <h3>Pop</h3>
+                    <p>75+ Beats</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Browse</h3>
+                    <p>Explore our catalog of premium beats from top producers</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>Listen</h3>
+                    <p>Preview beats to find the perfect match for your project</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Purchase</h3>
+                    <p>Buy the beats you love with secure checkout</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Download</h3>
+                    <p>Get high-quality files ready for your next hit</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Found the perfect beat for my latest single. The quality is amazing and the process was super easy!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/artist1.jpg" alt="Artist testimonial">
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <p>Independent Artist</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"As a producer, this platform has helped me connect with artists worldwide. The exposure and sales have been incredible."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/producer1.jpg" alt="Producer testimonial">
+                        <div>
+                            <h4>Mike Williams</h4>
+                            <p>Beat Producer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"The beat I purchased became the foundation for my breakthrough track. Can't thank BeatMarket enough!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/artist2.jpg" alt="Artist testimonial">
+                        <div>
+                            <h4>James Rodriguez</h4>
+                            <p>Signed Artist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Create Your Next Hit?</h2>
+                <p>Join thousands of artists who found their sound on Mortal Beats</p>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Mortal Beats</h3>
+                    <p>The premier marketplace for producers and artists to connect through music.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/mortal_bbx/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>For Artists</h4>
+                    <ul>
+                        <li><a href="licensing.html">Licensing Info</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>For Producers</h4>
+                    <ul>
+                        <li><a href="sell.html">Sell Your Beats</a></li>
+                        <li><a href="producer-faq.html">Producer FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/audio-player.js"></script>
+</body>
+</html>

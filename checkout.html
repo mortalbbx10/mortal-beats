@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Mortal Beats</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for checkout page */
+        .checkout-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/checkout-header.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .checkout-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(140, 94, 255, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .checkout-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(140, 94, 255, 0.5);
+            position: relative;
+        }
+        
+        .checkout-container {
+            padding: 80px 0;
+            background-color: var(--dark-secondary);
+            position: relative;
+            min-height: 70vh;
+        }
+        
+        .checkout-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom right, rgba(140, 94, 255, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .checkout-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .order-summary {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .order-summary h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .order-items {
+            margin-bottom: 30px;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(140, 94, 255, 0.1);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .order-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .order-item-details {
+            flex: 1;
+        }
+        
+        .order-item-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .order-item-details p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .order-item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(140, 94, 255, 0.3);
+        }
+        
+        .order-totals {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .order-total-row.final {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(140, 94, 255, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .payment-methods {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .payment-methods h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .payment-option {
+            margin-bottom: 40px;
+        }
+        
+        .payment-option h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-option h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .cashapp-section {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            border: 1px solid rgba(140, 94, 255, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .cashapp-logo {
+            margin-bottom: 20px;
+        }
+        
+        .cashapp-logo img {
+            height: 50px;
+        }
+        
+        .qr-code-container {
+            margin: 20px auto;
+            max-width: 250px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .qr-code-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .cashapp-instructions {
+            margin-top: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .cashapp-instructions ol {
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .cashapp-instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .cashapp-handle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 15px 0;
+            padding: 10px;
+            background-color: rgba(140, 94, 255, 0.1);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .order-note {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(140, 94, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .order-note h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .order-note p {
+            color: var(--gray-color);
+            line-height: 1.6;
+        }
+        
+        .complete-order-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(140, 94, 255, 0.3);
+            text-align: center;
+        }
+        
+        .complete-order-btn:hover {
+            background-color: #7a4dff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(140, 94, 255, 0.5);
+        }
+        
+        .back-to-cart {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--gray-color);
+            transition: var(--transition);
+        }
+        
+        .back-to-cart:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 992px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                order: 1;
+            }
+            
+            .payment-methods {
+                order: 0;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .order-item-image {
+                margin-bottom: 15px;
+            }
+            
+            .order-item-price {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="checkout-header">
+        <div class="container">
+            <h1>Complete Your Purchase</h1>
+        </div>
+    </section>
+
+    <section class="checkout-container">
+        <div class="container">
+            <div class="checkout-content">
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    
+                    <div class="order-items" id="orderItems">
+                        <!-- Order items will be dynamically loaded here -->
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="order-total-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="order-total-row">
+                            <span>Discount</span>
+                            <span id="discount">-$0.00</span>
+                        </div>
+                        <div class="order-total-row final">
+                            <span>Total</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h2>Payment Method</h2>
+                    
+                    <div class="payment-option">
+                        <h3><i class="fas fa-money-bill-wave"></i> CashApp</h3>
+                        
+                        <div class="cashapp-section">
+                            <div class="cashapp-logo">
+                                <img src="images/cashapp-logo.png" alt="CashApp Logo">
+                            </div>
+                            
+                            <p>Scan the QR code below with your CashApp app to pay:</p>
+                            
+                            <div class="qr-code-container">
+                                <!-- Replace with your actual CashApp QR code -->
+                                <img src="images/cashapp-qr.png" alt="CashApp QR Code">
+                            </div>
+                            
+                            <div class="cashapp-handle">
+                                $MortalBeats
+                            </div>
+                            
+                            <div class="cashapp-instructions">
+                                <ol>
+                                    <li>Open your CashApp application</li>
+                                    <li>Scan the QR code or send payment to <strong>$MortalBeats</strong></li>
+                                    <li>Enter the exact amount: <strong id="cashapp-amount">$0.00</strong></li>
+                                    <li>In the note, include your email address</li>
+                                    <li>Click "Pay" to complete your transaction</li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="order-note">
+                            <h3>Important Note</h3>
+                            <p>After completing your payment, click the "Complete Order" button below. Your beats will be delivered to your email address once payment is confirmed.</p>
+                        </div>
+                        
+                        <a href="#" class="complete-order-btn" id="completeOrderBtn">Complete Order</a>
+                        <a href="cart.html" class="back-to-cart">Back to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Mortal Beats</h3>
+                    <p>Premium beats for artists, content creators, and music lovers. Find the perfect sound for your next project.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/mortal_bbx/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">License Information</a></li>
+                        <li><a href="#">Copyright Notice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:mortalbbx2010@gmail.com">mortalbbx2010@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        // Complete order button functionality
+        document.getElementById('completeOrderBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get customer email from form (in a real application)
+            // For demo purposes, we'll use a placeholder email
+            const customerEmail = "customer@example.com";
+            
+            // Generate a unique order ID
+            const orderId = 'MB-' + Math.floor(100000 + Math.random() * 900000);
+            
+            // Get cart items
+            const cart = JSON.parse(localStorage.getItem('mortalBeatsCart')) || [];
+            
+            // Create a new order
+            const newOrder = {
+                id: orderId,
+                date: new Date().toISOString(),
+                email: customerEmail,
+                items: [...cart],
+                status: 'pending'
+            };
+            
+            // Get existing orders
+            const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+            
+            // Add new order
+            orders.push(newOrder);
+            
+            // Save to localStorage
+            localStorage.setItem('mortalBeatsOrders', JSON.stringify(orders));
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification success';
+            notification.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your order! We\'ll process it once payment is confirmed.';
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'rgba(40, 167, 69, 0.9)';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+            notification.style.zIndex = '1000';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove notification after 2 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                    // Redirect to order confirmation page
+                    window.location.href = `order-confirmation.html?order_id=${orderId}&email=${customerEmail}&status=pending`;
+                }, 500);
+            }, 2000);
+        });
+        
+        // Get cart data from localStorage to display in order summary
+        document.addEventListener('DOMContentLoaded', function() {
+            // Clear any existing cart data from the page
+            document.getElementById('orderItems').innerHTML = '';
+            
+            // Get fresh cart data from localStorage
+            const cart = JSON.parse(localStorage.getItem('mortalBeatsCart')) || [];
+            
+            // Update cart count in header
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
+            
+            // If cart is empty, redirect to cart page
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+            
+            // Display cart items in order summary
+            const orderItemsContainer = document.getElementById('orderItems');
+            let subtotal = 0;
+            
+            // Add each item to the order summary
+            cart.forEach(item => {
+                // Extract the numeric price value
+                const priceValue = parseFloat(item.price.replace('$', ''));
+                subtotal += priceValue;
+                
+                // Create order item element
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <div class="order-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="order-item-details">
+                        <h3>${item.name}</h3>
+                        <p>Basic License</p>
+                        <p>Producer: ${item.producer}</p>
+                    </div>
+                    <div class="order-item-price">${item.price}</div>
+                `;
+                
+                // Add to order items container
+                orderItemsContainer.appendChild(orderItem);
+            });
+            
+            // Update totals
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            const cashappAmountElement = document.getElementById('cashapp-amount');
+            
+            // Format the subtotal and total
+            const formattedSubtotal = '$' + subtotal.toFixed(2);
+            
+            // Update the elements
+            subtotalElement.textContent = formattedSubtotal;
+            totalElement.textContent = formattedSubtotal;
+            cashappAmountElement.textContent = formattedSubtotal;
+            
+            // Add event listener to the Complete Order button to clear cart
+            document.getElementById('completeOrderBtn').addEventListener('click', function(e) {
+                // Clear the cart after order is complete
+                localStorage.setItem('mortalBeatsCart', JSON.stringify([]));
+            });
+        });
+    </script>
+</body>
+</html>

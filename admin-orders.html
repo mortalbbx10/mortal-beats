@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders - Mortal Beats</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Admin styles */
+        .admin-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('images/beats-header.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 50px;
+            text-align: center;
+            color: white;
+        }
+        
+        .admin-container {
+            padding: 50px 0;
+            background-color: var(--dark-secondary);
+        }
+        
+        .admin-content {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .admin-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .admin-title h2 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+        
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background-color: var(--dark-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .orders-table-container {
+            overflow-x: auto;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(140, 94, 255, 0.1);
+        }
+        
+        .orders-table th {
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .orders-table tr:hover {
+            background-color: rgba(140, 94, 255, 0.05);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        .status-confirmed {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        
+        .status-cancelled {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+        
+        .btn-confirm {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-confirm:hover {
+            background-color: rgba(40, 167, 69, 0.2);
+        }
+        
+        .btn-cancel {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-cancel:hover {
+            background-color: rgba(220, 53, 69, 0.2);
+        }
+        
+        .btn-view {
+            background-color: rgba(140, 94, 255, 0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(140, 94, 255, 0.3);
+        }
+        
+        .btn-view:hover {
+            background-color: rgba(140, 94, 255, 0.2);
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .search-filter input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid rgba(140, 94, 255, 0.3);
+            border-radius: 5px;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+        }
+        
+        .search-filter select {
+            padding: 10px 15px;
+            border: 1px solid rgba(140, 94, 255, 0.3);
+            border-radius: 5px;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .pagination a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .pagination a:hover,
+        .pagination a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin-orders.html" class="active">Admin</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="admin-header">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+        </div>
+    </section>
+
+    <section class="admin-container">
+        <div class="container">
+            <div class="admin-content">
+                <div class="admin-title">
+                    <h2>Order Management</h2>
+                    <div class="search-filter">
+                        <input type="text" placeholder="Search by order ID or email...">
+                        <select>
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <h3>12</h3>
+                        <p>Total Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>5</h3>
+                        <p>Pending Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>7</h3>
+                        <p>Completed Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>$420</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded dynamically -->
+                            <tr id="noOrdersRow">
+                                <td colspan="7" style="text-align: center; padding: 30px;">
+                                    No orders have been placed yet.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Mortal Beats</h3>
+                    <p>Premium beats for artists and creators. Find the perfect sound for your next project.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">License Information</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new beats and exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load orders from localStorage
+            loadOrders();
+            
+            // Function to load orders from localStorage
+            function loadOrders() {
+                // Get orders from localStorage
+                const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+                const ordersTableBody = document.getElementById('ordersTableBody');
+                const noOrdersRow = document.getElementById('noOrdersRow');
+                
+                // Update stats
+                updateOrderStats(orders);
+                
+                // If no orders, show the "no orders" message
+                if (orders.length === 0) {
+                    return;
+                }
+                
+                // Hide the "no orders" message
+                if (noOrdersRow) {
+                    noOrdersRow.style.display = 'none';
+                }
+                
+                // Add each order to the table
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    
+                    // Format date
+                    const orderDate = new Date(order.date);
+                    const formattedDate = orderDate.toISOString().split('T')[0];
+                    
+                    // Calculate total
+                    let total = 0;
+                    order.items.forEach(item => {
+                        const price = parseFloat(item.price.replace('$', ''));
+                        total += price;
+                    });
+                    
+                    // Create status badge class
+                    const statusClass = `status-badge status-${order.status.toLowerCase()}`;
+                    
+                    // Create action buttons based on status
+                    let actionButtons = '';
+                    if (order.status === 'pending') {
+                        actionButtons = `
+                            <button class="btn-action btn-confirm" data-order="${order.id}" data-email="${order.email}">Confirm</button>
+                            <button class="btn-action btn-cancel" data-order="${order.id}" data-email="${order.email}">Cancel</button>
+                            <button class="btn-action btn-view" data-order="${order.id}" data-email="${order.email}">View</button>
+                        `;
+                    } else {
+                        actionButtons = `
+                            <button class="btn-action btn-view" data-order="${order.id}" data-email="${order.email}">View</button>
+                        `;
+                    }
+                    
+                    // Set row HTML
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${formattedDate}</td>
+                        <td>${order.email}</td>
+                        <td>${order.items.length} beat${order.items.length > 1 ? 's' : ''}</td>
+                        <td>$${total.toFixed(2)}</td>
+                        <td><span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span></td>
+                        <td class="action-buttons">
+                            ${actionButtons}
+                        </td>
+                    `;
+                    
+                    // Add row to table
+                    ordersTableBody.appendChild(row);
+                });
+                
+                // Add event listeners to buttons
+                attachEventListeners();
+            }
+            
+            // Function to update order stats
+            function updateOrderStats(orders) {
+                // Count orders by status
+                let totalOrders = orders.length;
+                let pendingOrders = orders.filter(order => order.status === 'pending').length;
+                let confirmedOrders = orders.filter(order => order.status === 'confirmed').length;
+                
+                // Calculate total revenue
+                let totalRevenue = 0;
+                orders.forEach(order => {
+                    if (order.status === 'confirmed') {
+                        order.items.forEach(item => {
+                            const price = parseFloat(item.price.replace('$', ''));
+                            totalRevenue += price;
+                        });
+                    }
+                });
+                
+                // Update stats in UI
+                const statCards = document.querySelectorAll('.stat-card');
+                if (statCards.length >= 4) {
+                    statCards[0].querySelector('h3').textContent = totalOrders;
+                    statCards[1].querySelector('h3').textContent = pendingOrders;
+                    statCards[2].querySelector('h3').textContent = confirmedOrders;
+                    statCards[3].querySelector('h3').textContent = '$' + totalRevenue.toFixed(2);
+                }
+            }
+            
+            // Function to attach event listeners to buttons
+            function attachEventListeners() {
+                // Handle confirm payment button clicks
+                const confirmButtons = document.querySelectorAll('.btn-confirm');
+                confirmButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-order');
+                        const email = this.getAttribute('data-email');
+                        
+                        // Update order status in localStorage
+                        updateOrderStatus(orderId, 'confirmed');
+                        
+                        // Update UI
+                        const row = this.closest('tr');
+                        const statusCell = row.querySelector('.status-badge');
+                        const actionsCell = row.querySelector('.action-buttons');
+                        
+                        // Update status
+                        statusCell.className = 'status-badge status-confirmed';
+                        statusCell.textContent = 'confirmed';
+                        
+                        // Update actions
+                        actionsCell.innerHTML = `
+                            <button class="btn-action btn-view" data-order="${orderId}" data-email="${email}">View</button>
+                        `;
+                        
+                        // Show confirmation message
+                        alert(`Payment for order ${orderId} has been confirmed. The customer now has access to download their beats.`);
+                        
+                        // Create a link to the order confirmation page with confirmed status
+                        const confirmationUrl = `order-confirmation.html?order_id=${orderId}&email=${email}&status=confirmed`;
+                        
+                        // Open the confirmation page in a new tab
+                        window.open(confirmationUrl, '_blank');
+                        
+                        // Update stats
+                        const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+                        updateOrderStats(orders);
+                    });
+                });
+                
+                // Handle cancel order button clicks
+                const cancelButtons = document.querySelectorAll('.btn-cancel');
+                cancelButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-order');
+                        const email = this.getAttribute('data-email');
+                        
+                        if (confirm(`Are you sure you want to cancel order ${orderId}?`)) {
+                            // Update order status in localStorage
+                            updateOrderStatus(orderId, 'cancelled');
+                            
+                            // Update UI
+                            const row = this.closest('tr');
+                            const statusCell = row.querySelector('.status-badge');
+                            const actionsCell = row.querySelector('.action-buttons');
+                            
+                            // Update status
+                            statusCell.className = 'status-badge status-cancelled';
+                            statusCell.textContent = 'cancelled';
+                            
+                            // Update actions
+                            actionsCell.innerHTML = `
+                                <button class="btn-action btn-view" data-order="${orderId}" data-email="${email}">View</button>
+                            `;
+                            
+                            // Update stats
+                            const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+                            updateOrderStats(orders);
+                        }
+                    });
+                });
+                
+                // Handle view order button clicks
+                const viewButtons = document.querySelectorAll('.btn-view');
+                viewButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-order');
+                        const email = this.getAttribute('data-email');
+                        
+                        // Open order confirmation page
+                        const confirmationUrl = `order-confirmation.html?order_id=${orderId}&email=${email}`;
+                        window.open(confirmationUrl, '_blank');
+                    });
+                });
+            }
+            
+            // Function to update order status in localStorage
+            function updateOrderStatus(orderId, newStatus) {
+                const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+                
+                // Find the order and update its status
+                const orderIndex = orders.findIndex(order => order.id === orderId);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].status = newStatus;
+                    localStorage.setItem('mortalBeatsOrders', JSON.stringify(orders));
+                }
+            }
+            
+            // Add a test order button for demo purposes
+            const adminContent = document.querySelector('.admin-content');
+            const testOrderButton = document.createElement('button');
+            testOrderButton.textContent = 'Create Test Order';
+            testOrderButton.style.marginTop = '20px';
+            testOrderButton.style.padding = '10px 20px';
+            testOrderButton.style.backgroundColor = '#6c757d';
+            testOrderButton.style.color = 'white';
+            testOrderButton.style.border = 'none';
+            testOrderButton.style.borderRadius = '5px';
+            testOrderButton.style.cursor = 'pointer';
+            
+            testOrderButton.addEventListener('click', function() {
+                // Get cart from localStorage
+                const cart = JSON.parse(localStorage.getItem('mortalBeatsCart')) || [];
+                
+                if (cart.length === 0) {
+                    alert('Please add some beats to your cart first, then come back to create a test order.');
+                    return;
+                }
+                
+                // Generate a unique order ID
+                const orderId = 'MB-' + Math.floor(100000 + Math.random() * 900000);
+                
+                // Create a new order
+                const newOrder = {
+                    id: orderId,
+                    date: new Date().toISOString(),
+                    email: 'customer@example.com',
+                    items: [...cart],
+                    status: 'pending'
+                };
+                
+                // Get existing orders
+                const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+                
+                // Add new order
+                orders.push(newOrder);
+                
+                // Save to localStorage
+                localStorage.setItem('mortalBeatsOrders', JSON.stringify(orders));
+                
+                // Reload the page to show the new order
+                window.location.reload();
+            });
+            
+            // Add the button to the page
+            adminContent.appendChild(testOrderButton);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mortal Beats</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for contact page */
+        .contact-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/contact-header.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(140, 94, 255, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .contact-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(140, 94, 255, 0.5);
+            position: relative;
+        }
+        
+        .contact-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .contact-container {
+            padding: 100px 0;
+            background-color: var(--dark-secondary);
+            position: relative;
+        }
+        
+        .contact-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom right, rgba(140, 94, 255, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .contact-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            padding-right: 30px;
+        }
+        
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(140, 94, 255, 0.5);
+        }
+        
+        .contact-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+        
+        .contact-methods {
+            margin-top: 40px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-tertiary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(140, 94, 255, 0.3);
+            border: 1px solid rgba(140, 94, 255, 0.3);
+        }
+        
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .contact-details p, .contact-details a {
+            color: var(--gray-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+        
+        .contact-details a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-contact {
+            margin-top: 40px;
+        }
+        
+        .social-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-tertiary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: var(--transition);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(140, 94, 255, 0.4);
+        }
+        
+        .contact-form {
+            background-color: var(--dark-tertiary);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .contact-form h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(140, 94, 255, 0.3);
+            border-radius: 5px;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(140, 94, 255, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(140, 94, 255, 0.3);
+        }
+        
+        .submit-btn:hover {
+            background-color: #7a4dff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(140, 94, 255, 0.5);
+        }
+        
+        .form-note {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--gray-color);
+            text-align: center;
+        }
+        
+        .faq-section {
+            margin-top: 100px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .faq-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text-color);
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+        
+        .faq-item {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(140, 94, 255, 0.2);
+            border: 1px solid rgba(140, 94, 255, 0.4);
+        }
+        
+        .faq-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .faq-item p {
+            color: var(--gray-color);
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+            
+            .contact-method {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="contact-header">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p>Have questions or want to collaborate? I'm just a message away.</p>
+        </div>
+    </section>
+
+    <section class="contact-container">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Let's Connect</h2>
+                    <p>Whether you're looking for a custom beat, have questions about licensing, or just want to chat about music, I'm here to help. Feel free to reach out through any of the methods below.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p><a href="mailto:mortalbbx2010@gmail.com">mortalbbx2010@gmail.com</a></p>
+                                <p>I typically respond within 24 hours</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Custom Beat Requests</h3>
+                                <p>Looking for something specific? Let me know what you're looking for and I'll create something unique for you.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Response Time</h3>
+                                <p>I aim to respond to all inquiries within 24-48 hours. For urgent matters, please indicate in your message.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <h3>Connect on Social Media</h3>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/mortal_bbx/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        
+                        <p class="form-note">* All fields are required. Your information will never be shared with third parties.</p>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>How do I purchase a beat?</h3>
+                        <p>Browse the beats catalog, select the beat you like, choose your preferred license, and add it to your cart. Complete the checkout process, and you'll receive download links for your purchased beats.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>What's the difference between license types?</h3>
+                        <p>Basic licenses allow for limited use, while Premium licenses offer more flexibility. Exclusive licenses transfer full rights to you, and the beat is removed from the store. Check the licensing page for detailed information.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Do you offer custom beats?</h3>
+                        <p>Yes! I create custom beats tailored to your specific needs. Contact me with details about your project, and we can discuss timeline and pricing.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>How long does it take to receive my beats?</h3>
+                        <p>After purchase, you'll receive download links immediately. If you encounter any issues, please contact me, and I'll resolve them as quickly as possible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Mortal Beats</h3>
+                    <p>Premium beats for artists, content creators, and music lovers. Find the perfect sound for your next project.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/mortal_bbx/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">License Information</a></li>
+                        <li><a href="#">Copyright Notice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:mortalbbx2010@gmail.com">mortalbbx2010@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real implementation, you would send the form data to a server
+            // For demo purposes, we'll just show a success message
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification success';
+            notification.innerHTML = '<i class="fas fa-check-circle"></i> Your message has been sent successfully! I\'ll get back to you soon.';
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'rgba(40, 167, 69, 0.9)';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+            notification.style.zIndex = '1000';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Reset form
+            this.reset();
+            
+            // Remove notification after 5 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

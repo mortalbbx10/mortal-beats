@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Mortal Beats</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for order confirmation page */
+        .confirmation-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/beats-header.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .confirmation-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(140, 94, 255, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .confirmation-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(140, 94, 255, 0.5);
+            position: relative;
+        }
+        
+        .confirmation-container {
+            padding: 80px 0;
+            background-color: var(--dark-secondary);
+            position: relative;
+        }
+        
+        .confirmation-content {
+            background-color: var(--dark-tertiary);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(140, 94, 255, 0.2);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .confirmation-icon {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-message {
+            margin-bottom: 30px;
+        }
+        
+        .confirmation-message h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .confirmation-message p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .order-id {
+            background-color: var(--dark-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        
+        .download-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(140, 94, 255, 0.2);
+        }
+        
+        .download-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .download-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .download-item {
+            background-color: var(--dark-color);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid rgba(140, 94, 255, 0.2);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .download-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        
+        .download-item-info {
+            flex: 1;
+        }
+        
+        .download-item-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .download-item-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .download-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .download-btn:hover {
+            background-color: #7a4dff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 94, 255, 0.3);
+        }
+        
+        .download-all-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .download-all-btn:hover {
+            background-color: #7a4dff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 94, 255, 0.3);
+        }
+        
+        .payment-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-pending h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .payment-pending p {
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        
+        .payment-confirmed {
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-confirmed h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .contact-support {
+            margin-top: 40px;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .contact-support a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-support a:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .confirmation-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .confirmation-content {
+                padding: 30px 20px;
+            }
+            
+            .download-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Mortal Beats</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="beats.html">Browse Beats</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+                <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="confirmation-header">
+        <div class="container">
+            <h1>Order Confirmation</h1>
+        </div>
+    </section>
+
+    <section class="confirmation-container">
+        <div class="container">
+            <div class="confirmation-content">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <div class="confirmation-message">
+                    <h2>Thank You for Your Order!</h2>
+                    <p>Your order has been received and is being processed.</p>
+                    <p>Order ID: <span class="order-id" id="orderId">MB-12345</span></p>
+                    <p>A confirmation email has been sent to <strong id="customerEmail">your@email.com</strong></p>
+                </div>
+                
+                <!-- Payment Pending Section (shown by default) -->
+                <div class="payment-pending" id="paymentPending">
+                    <h3><i class="fas fa-clock"></i> Payment Pending</h3>
+                    <p>We're waiting to confirm your CashApp payment. This usually takes 5-15 minutes but can take up to 24 hours during busy periods.</p>
+                    <p>Once your payment is confirmed, you'll be able to download your beats.</p>
+                </div>
+                
+                <!-- Payment Confirmed Section (hidden by default) -->
+                <div class="payment-confirmed hidden" id="paymentConfirmed">
+                    <h3><i class="fas fa-check-circle"></i> Payment Confirmed</h3>
+                    <p>Your payment has been confirmed! You can now download your beats below.</p>
+                </div>
+                
+                <!-- Download Section (hidden by default) -->
+                <div class="download-section hidden" id="downloadSection">
+                    <h3>Your Beats Are Ready to Download</h3>
+                    
+                    <div class="download-list" id="downloadList">
+                        <!-- Download items will be dynamically added here -->
+                    </div>
+                    
+                    <button class="download-all-btn" id="downloadAllBtn" style="background-color: #ff6b6b; font-size: 1.2rem; padding: 15px 30px;">
+                        <i class="fas fa-download"></i> Download All Beats (WAV)
+                    </button>
+                </div>
+                
+                <div class="contact-support">
+                    <p>If you have any questions or need assistance, please <a href="contact.html">contact our support team</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Mortal Beats</h3>
+                    <p>Premium beats for artists and creators. Find the perfect sound for your next project.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="beats.html">Browse Beats</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Sign Up</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">License Information</a></li>
+                        <li><a href="#">Copyright Notice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new beats and exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mortal Beats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+            const email = urlParams.get('email');
+            let paymentStatus = urlParams.get('status');
+            
+            // Update order ID and email
+            if (orderId) {
+                document.getElementById('orderId').textContent = orderId;
+            } else {
+                // Generate a random order ID if none provided
+                const randomOrderId = 'MB-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('orderId').textContent = randomOrderId;
+            }
+            
+            if (email) {
+                document.getElementById('customerEmail').textContent = email;
+            }
+            
+            // Check if order exists in localStorage and get its status
+            const orders = JSON.parse(localStorage.getItem('mortalBeatsOrders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order) {
+                // If order exists in localStorage, use its status
+                paymentStatus = order.status;
+            }
+            
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('mortalBeatsCart')) || [];
+            
+            // Update cart count in header
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
+            
+            // Get order items from the order in localStorage if available
+            let orderItems = cart;
+            if (order) {
+                orderItems = order.items;
+            }
+            
+            // Check payment status
+            if (paymentStatus === 'confirmed') {
+                // Show payment confirmed section
+                document.getElementById('paymentPending').classList.add('hidden');
+                document.getElementById('paymentConfirmed').classList.remove('hidden');
+                document.getElementById('downloadSection').classList.remove('hidden');
+                
+                // Populate download list
+                const downloadList = document.getElementById('downloadList');
+                
+                orderItems.forEach(item => {
+                    const downloadItem = document.createElement('div');
+                    downloadItem.className = 'download-item';
+                    downloadItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="download-item-info">
+                            <h4>${item.name}</h4>
+                            <p>Producer: ${item.producer}</p>
+                        </div>
+                        <button class="download-btn" data-beat="${item.name}" data-type="wav">
+                            <i class="fas fa-download"></i> Download Beat
+                        </button>
+                    `;
+                    
+                    downloadList.appendChild(downloadItem);
+                });
+                
+                // Add event listeners to download buttons
+                const downloadButtons = document.querySelectorAll('.download-btn');
+                downloadButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const beatName = this.getAttribute('data-beat');
+                        
+                        // Create download link for the audio file
+                        const audioFile = `audio/${beatName}.wav`;
+                        
+                        console.log(`Attempting to download: ${audioFile}`);
+                        
+                        // Show a message to help debug
+                        alert(`Attempting to download: ${audioFile}`);
+                        
+                        // Create a temporary anchor element
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = audioFile;
+                        downloadLink.download = `${beatName}.wav`;
+                        
+                        // Append to body, click, and remove
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                    });
+                });
+                
+                // Download all button
+                document.getElementById('downloadAllBtn').addEventListener('click', function() {
+                    // Since we can't create a ZIP file in the browser easily,
+                    // we'll trigger downloads for each file one by one
+                    const downloadButtons = document.querySelectorAll('.download-btn');
+                    
+                    // Create a delay between downloads to prevent browser issues
+                    let delay = 0;
+                    downloadButtons.forEach(button => {
+                        setTimeout(() => {
+                            button.click();
+                        }, delay);
+                        delay += 1000; // 1 second delay between downloads
+                    });
+                });
+                
+                // Clear cart after successful payment and download access
+                // localStorage.setItem('mortalBeatsCart', JSON.stringify([]));
+            }
+            
+            // For demo purposes: Add a button to simulate payment confirmation
+            const simulateButton = document.createElement('button');
+            simulateButton.textContent = 'Simulate Payment Confirmation';
+            simulateButton.style.marginTop = '20px';
+            simulateButton.style.padding = '10px 20px';
+            simulateButton.style.backgroundColor = '#6c757d';
+            simulateButton.style.color = 'white';
+            simulateButton.style.border = 'none';
+            simulateButton.style.borderRadius = '5px';
+            simulateButton.style.cursor = 'pointer';
+            
+            simulateButton.addEventListener('click', function() {
+                window.location.href = `order-confirmation.html?order_id=${document.getElementById('orderId').textContent}&email=${document.getElementById('customerEmail').textContent}&status=confirmed`;
+            });
+            
+            // Only add the simulate button if payment is pending
+            if (paymentStatus !== 'confirmed') {
+                document.querySelector('.contact-support').before(simulateButton);
+            }
+        });
+    </script>
+</body>
+</html>
